@@ -1,5 +1,6 @@
 // backend.js
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
@@ -49,6 +50,7 @@ const findUserByJob = (job) => {
     );
   };
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -63,7 +65,7 @@ const addUser = (user) => {
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
   addUser(userToAdd);
-  res.send();
+  res.status(201).send(userToAdd);
 });
 
 app.get("/users", (req, res) => {
@@ -72,17 +74,13 @@ app.get("/users", (req, res) => {
     let result = users["users_list"]
     if (name != undefined) {
       result = findUserByName(name);
-      result = { users_list: result };
-      
     } 
     
     if (job != undefined) {
       result = findUserByJob(job);
-      result = {users_list: result};
-      
     }
     
-      res.send(result);
+      res.send({users_list: result});
     
     
   });
