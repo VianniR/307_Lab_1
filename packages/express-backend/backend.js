@@ -71,20 +71,19 @@ app.get("/users", (req, res) => {
 
     let result = users["users_list"]
     if (name != undefined) {
-      let result = findUserByName(name);
+      result = findUserByName(name);
       result = { users_list: result };
-      res.send(result);
+      
     } 
     
     if (job != undefined) {
-      let result = findUserByJob(job);
+      result = findUserByJob(job);
       result = {users_list: result};
-      res.send(result)
+      
     }
     
-    else{
-      res.send(users);
-    }
+      res.send(result);
+    
     
   });
 
