@@ -7,10 +7,22 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
 
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
+    const id = characters[index].id;
+    fetch(`http://localhost:8000/users/${id}`, {
+      method: 'DELETE'
+    }).then((res) => {
+      if (res.status === 204) {
+       
+        setCharacters(prevCharacters =>
+          prevCharacters.filter(character => character.id !== id)
+        );
+      } else if (res.status === 404) {
+        throw new Error("Resource not found.");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
-    setCharacters(updated);
   }
 
   function updateList(person) { 

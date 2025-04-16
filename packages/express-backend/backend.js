@@ -104,7 +104,7 @@ app.delete("/users/:id", (req, res) => {
     
     users["users_list"] = users["users_list"].filter((user) => user["id"] !== id);
 
-    res.status(200).send();
+    res.status(204).send();
   });
 
 app.listen(port, () => {
