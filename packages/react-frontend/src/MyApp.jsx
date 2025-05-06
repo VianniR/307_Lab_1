@@ -7,14 +7,14 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
 
   function removeOneCharacter(index) {
-    const id = characters[index].id;
-    fetch(`http://localhost:8000/users/${id}`, {
+    const _id = characters[index]._id;
+    fetch(`http://localhost:8000/users/${_id}`, {
       method: 'DELETE'
     }).then((res) => {
-      if (res.status === 204) {
+      if (res.status === 200) {
        
         setCharacters(prevCharacters =>
-          prevCharacters.filter(character => character.id !== id)
+          prevCharacters.filter(character => character._id !== _id)
         );
       } else if (res.status === 404) {
         throw new Error("Resource not found.");
